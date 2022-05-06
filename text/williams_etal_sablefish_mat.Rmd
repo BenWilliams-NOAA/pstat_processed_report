@@ -1,0 +1,140 @@
+---
+title: "Incorporating spatial heterogeneity in sablefish maturity into a spatially-structured operating model"
+author: |
+  | Benjamin Williams$^1$, Cara Rodgveller$^1$, Melissa Head$^2$ 
+  | $^1$NOAA, AFSC, ABL, Juneau, Alaska  
+  | $^2$NOAA PSC Seattle, WA
+date: "May 2022"
+output:
+  bookdown::word_document2:
+    toc: true
+    reference_docx: styles_reference.docx
+bibliography: "refs.bib"
+csl: "canjfas.csl"
+
+header-includes:
+#  - \usepackage{setspace}\doublespacing
+#  - \usepackage{lineno}
+#  - \linenumbers
+  - \usepackage{pdflscape}
+  - \usepackage{fullpage}  
+  - \usepackage{float}    
+---
+
+```{r setup, echo=FALSE}
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, error=FALSE, warning=FALSE, fig.pos = 'H')
+```
+# Abstract
+
+# Introduction  
+
+Female age-at-maturity is integral to estimation of female spawning biomass, which is used to set biological reference points for many fishery stock assessments [@Gabriel1999]. 
+When incorporating spatial complexity into a stock assessment 
+The maturity data currently used in the Alaska sablefish stock assessment were collected over 30 years ago and was classified macroscopically using a visual assessment during the summer, which is ~6-9 months prior to spawning (1978-1983; Sasaki 1985). 
+In addition, only lengths were recorded, which were later converted to ages to obtain an age-at-maturity model. 
+The ideal time to sample sablefish for maturity classification and fecundity measurements is just prior to the spawning season and the most accurate method for maturity classification is to examine histology slides microscopically (Hunter et al. 1992).
+
+The objective of this analysis was to provide maturity-at-age for a suite of potential OMs for the PSTAT assessment. 
+
+
+# Methods  
+
+## Sample collection and histology  
+
+Ovary samples were collected from Alaska waters in 2011 and 2015 and from Washington, Oregon, and California waters in 2011, 2015, 2016, and 2018. 
+Associated biological and collection information for female sablefish included fork length (cm), weight (kg), age, maturity status (macroscopic and histological), location (latitude, longitude), depth (ftm), and date of capture.
+
+Since maturity classification of sablefish is best determined histologically (Rodgveller 2018)
+
+
+
+ 
+
+
+## Spatial structure 
+
+A number of population spatial structures were examined with varying levels of spatial variability incorporated into the models. 
+A status quo (SQ) spatial structure was included which is estimated upon macroscopic-based maturity schedules implemented for each management area. 
+A simple spatial structure (SSS) approach assumes that the parameters that determine maturity for each area are constant. 
+Therefore, any changes in maturity would arise as a function of differences in growth rates. 
+A management area spatial structure (MASS) approach allows for different maturity models by management region (i.e. Alaska, BC, West Coast). 
+This is most similar to the SQ, though it is informed with histological data instead of macroscopic maturity estimates.
+Last a growth-informed spatial structure (GSS) was examined, the GSS is aligned with the OM being developed for the coastwide MSE (Kapur et al. 2020). 
+The spatial structure is a variant of different growth regions presented in (Kapur et al. 2020), with the variation being a combining of a small region in BC with surrounding larger areas.  
+
+## Analysis
+
+These examinations of maturity were established to provide guidance for 
+
+To reduce complexity in this examination the output was constrained to models that can provide an estimate of maturity-at-age.
+Each region (Alaska and west coast) were modeled separately using the following generalized additive model:
+\begin{equation}
+\hat{M_a}=f_1(Length) + f_2(Location) + f_3(depth) + Age + Year + \epsilon. 
+\end{equation}
+
+The "joint" model combined both datasets and had the addition of a "region" variable.
+\begin{equation}
+\hat{M_a}=f_1(Length)\cdot Age + f_2(Location) + f_3(Depth) + Age + Year + Region + \epsilon. \end{equation}
+Length, location (lat/long), and depth were included as continuous variables. 
+The "knots" for length and depth were constrained to a maximum of 4. 
+All other variables were included as factors.
+
+
+Note that figures 9-11 are only representative of the samples collected. 
+If the location of the population as a whole is substantially different then these figures can be highly misleading.
+
+### Maturity models  
+
+Each region (Alaska and west coast) were modeled separately using the following generalized additive model:
+\begin{equation}
+\hat{M_a}=f_1(Length)\cdot Age + f_2(Location) + f_3(depth) + Age + Year + \epsilon. 
+\end{equation}
+
+The "joint" model combined both datasets and had the addition of a "region" variable.
+\begin{equation}
+\hat{M_a}=f_1(Length)\cdot Age + f_2(Location) + f_3(depth) + Age + Year + Region + \epsilon. \end{equation}
+Length, location (lat/long), and depth were included as continuous variables. 
+The "knots" for length and depth were constrained to a maximum of 4. 
+All other variables were included as factors.
+
+#### Model predictions
+
+Prediction data were established so that lengths were binned in two-centimeter increments between 10 and 80 cm and constrained to the minimum and maximum lengths by both age and region. 
+Latitude and longitude were in one-degree increments between the minimum and maximum for each region. 
+Ages 1 through 20 were included in the prediction dataset. 
+Depth was set as the median depth in each Region.
+
+Model predictions presented are the mean of the observed response e.g., the proportion mature at length by the mean length at age, mean depth, etc. 
+This differs from the usual presentation of median values for predictions. 
+However, it is unclear what the median location indicates, perhaps the mode would be more informative?
+
+# Results  
+
+Overall the joint model does a reasonably good job of describing the data in hand, with 74.1% of explained deviance (Table 1).
+The joint and separate models do a similar job of estimating maturity at age and length (Figures 1 & 2).
+
+
+# Discussion  
+
+General thoughts: 
+
+ - There are some substantial differences in the sample sizes by location, depth, age, etc. that need to be considered when examining a coastwide model; therfore I utilized generalized additive models as they deal with missing data fairly well.
+ - Given the spatial differences in sablefish maturity, on both coastwide and regional scales, it is imperative to incorporate spatial abundance estimates into the estimated maturity schedule.
+ - Length at maturity is a more precise descriptor (no surprise there).
+ - For the coastwide analysis it would likely be easiest to implement either a strait age at maturity schedule or a von Bertalanffy estimated conditional length at maturity.
+ - It may be desireable to incorporate some of the spatial aspects that are found within each region (not fully detailed here).
+
+# Acknowledgements
+
+# References
+
+<div id="refs"></div>
+
+\newpage 
+
+
+
+# Tables 
+
+
+# Figures  
