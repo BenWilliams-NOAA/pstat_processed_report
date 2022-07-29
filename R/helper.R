@@ -1,13 +1,17 @@
 library(tidyverse)
 library(lubridate)
 library(mgcViz)
-library(funcr) # devtools::install_github("ben-williams/FNGr")
+library(funcr) # devtools::install_github("ben-williams/funcr")
 library(mgcv)
 library(readxl)
 library(ggridges)
 library(EnvStats)
+library(scico)
+library(mapproj)
 theme_set(theme_report())
 library(PBSmapping)
 data("nepacLL")
 nepacLL %>% 
   dplyr::select(group=PID, POS=POS, long=X, lat=Y) -> ak_map
+library(extrafont)
+loadfonts(device="win")   

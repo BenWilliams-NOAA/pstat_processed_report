@@ -1,117 +1,150 @@
 ---
 title: "Incorporating spatial heterogeneity in sablefish maturity into a spatially-structured operating model"
-author: |
-  | Benjamin Williams$^1$, Cara Rodgveller$^1$, Melissa Head$^2$ 
-  | $^1$NOAA, AFSC, ABL, Juneau, Alaska  
-  | $^2$NOAA PSC Seattle, WA
+author: 
+  - name: Benjamin Williams
+    institute: afscjnu
+  - name: Cara Rodgveller
+    institute: afscjnu
+  - name: Melissa Head 
+    institute: afscsea
+institute: 
+  - afscjnu: Auke Bay Laboratories, Alaska Fisheries Science Center, NOAA, National Marine Fisheries Service, 17109 Point Lena Loop Road, Juneau, Alaska 99801  
+  - afscsea: Northwest Fisheries Science Center, NOAA, National Marine Fisheries Service, 2725 Montlake Blvd E, Seattle, WA 98112
 date: "May 2022"
 output:
-  bookdown::word_document2:
-    toc: true
+  bookdown::html_document2:
+    toc: false
+    number_sections: false
     reference_docx: styles_reference.docx
+    pandoc_args:  
+      - '--lua-filter=scholarly-metadata.lua'
+      - '--lua-filter=author-info-blocks.lua'
+      
 bibliography: "refs.bib"
 csl: "canjfas.csl"
 
 header-includes:
-#  - \usepackage{setspace}\doublespacing
-#  - \usepackage{lineno}
-#  - \linenumbers
-  - \usepackage{pdflscape}
-  - \usepackage{fullpage}  
-  - \usepackage{float}    
+  - \usepackage(amsmath) # for cases in equations
+  - \usepackage{booktabs}
+  - \usepackaee{cleveref}
+
+  - \renewcommand{\eqref}{\Cref}
+  - \Crefformat{equation}{#2#1#3}
 ---
 
 ```{r setup, echo=FALSE}
-knitr::opts_chunk$set(echo = FALSE, message=FALSE, error=FALSE, warning=FALSE, fig.pos = 'H')
+knitr::opts_chunk$set(echo = FALSE, message=FALSE, error=FALSE, warning=FALSE)
+source(here::here('R', "render_toc.R"))
+
 ```
+
+```{r load}
+library(dplyr)
+```
+\newpage
+
 # Abstract
+
+
+\newpage
+
+```{r toc}
+render_toc("williams_etal_sablefish_mat.Rmd")
+```
+
+\newpage
 
 # Introduction  
 
-Female age-at-maturity is integral to estimation of female spawning biomass, which is used to set biological reference points for many fishery stock assessments [@Gabriel1999]. 
-When incorporating spatial complexity into a stock assessment 
-The maturity data currently used in the Alaska sablefish stock assessment were collected over 30 years ago and was classified macroscopically using a visual assessment during the summer, which is ~6-9 months prior to spawning (1978-1983; Sasaki 1985). 
-In addition, only lengths were recorded, which were later converted to ages to obtain an age-at-maturity model. 
-The ideal time to sample sablefish for maturity classification and fecundity measurements is just prior to the spawning season and the most accurate method for maturity classification is to examine histology slides microscopically (Hunter et al. 1992).
+The Pacific Sablefish Transboundary Assessment Team (PSTAT), in collaboration with the Northwest Fisheries Science Center (NWFSC), Alaska Fisheries Science Center (AFSC), Department of Fisheries and Oceans (DFO), Alaska Department of Fish and Game (ADF&G), Pacific Fishery Management Council (PFMC), and North Pacific Fishery Management Council (NPFMC), is developing a range-wide sablefish management strategy evaluation (MSE). 
+One component of this work is the development of a set of operating models (OM) for use in the MSE that are spatially explicit [@Fenske2019]. 
+When incorporating spatial complexity into a fishery stock assessment or OM it is important that the population dynamics models accurately reflect reproductive potential [@Begg2005] such as maturity [@Cadrin2020]. 
+Given that sablefish exhibit spatially-varying growth [@Kapur2020] and maturity [@Rodgveller2018; @Head2020] it is necessary to align an understanding of sablefish maturity with proposed OMs. 
+The connectivity of this spatially-varying maturity is unclear, though it presents as temporally persistent patterns across the geographic range. 
 
-The objective of this analysis was to provide maturity-at-age for a suite of potential OMs for the PSTAT assessment. 
+The objective of this analysis was to provide maturity-at-age for a suite of OMs for the PSTAT assessment. 
+To do so two population spatial structures were examined with varying levels of spatial variability incorporated into the models. 
+A panmictic spatial structure (PSS) was considered where maturity was modeled as a simple function of age or age and length, without regard to spatial dynamics.
+A growth-informed spatial structure (GSS) was examined, the GSS is aligned with the OM being developed for the coastwide MSE (Kapur et al. *In Prep*). 
+The spatial structure is a variant of different growth regions presented in @Kapur2020, with the variation being a combining of a small region in BC with surrounding larger areas. 
+A third spatial structure that coincides with the status quo approach (i.e. Alaska, BC, West Coast) was considered however, histological data are not available for the BC management region at this time.
 
 
 # Methods  
 
 ## Sample collection and histology  
 
-Ovary samples were collected from Alaska waters in 2011 and 2015 and from Washington, Oregon, and California waters in 2011, 2015, 2016, and 2018. 
-Associated biological and collection information for female sablefish included fork length (cm), weight (kg), age, maturity status (macroscopic and histological), location (latitude, longitude), depth (ftm), and date of capture.
+**Could use some more input on sampling**
 
-Since maturity classification of sablefish is best determined histologically (Rodgveller 2018)
-
-
-
- 
-
-
-## Spatial structure 
-
-A number of population spatial structures were examined with varying levels of spatial variability incorporated into the models. 
-A status quo (SQ) spatial structure was included which is estimated upon macroscopic-based maturity schedules implemented for each management area. 
-A simple spatial structure (SSS) approach assumes that the parameters that determine maturity for each area are constant. 
-Therefore, any changes in maturity would arise as a function of differences in growth rates. 
-A management area spatial structure (MASS) approach allows for different maturity models by management region (i.e. Alaska, BC, West Coast). 
-This is most similar to the SQ, though it is informed with histological data instead of macroscopic maturity estimates.
-Last a growth-informed spatial structure (GSS) was examined, the GSS is aligned with the OM being developed for the coastwide MSE (Kapur et al. 2020). 
-The spatial structure is a variant of different growth regions presented in (Kapur et al. 2020), with the variation being a combining of a small region in BC with surrounding larger areas.  
+Macroscopic classification of female sablefish maturity can be inconsistent during some portion of a year [@Rodgveller2018], therefore only histological data were included in this analysis.
+Ovary samples were collected for female sablefish from Alaska waters in 2011 and 2015 and from Washington, Oregon, and California waters in 2010, 2015, 2016, and 2018. 
+Associated biological and collection information for samples included fork length (cm), weight (kg), age, maturity status, location (latitude, longitude), depth (m), and date of capture.
+However, some collection information is lacking for some specimens. 
+Of note is the lack of location information in 2016 for West Coast samples (Figure \@ref(fig:map)), and depth information in Alaska is binned (Figure \@ref(fig:depth)).
 
 ## Analysis
 
-These examinations of maturity were established to provide guidance for 
+To reduce complexity, examinations were constrained to models that can provide an estimate of maturity-at-age. 
+Two population spatial structures were examined with varying levels of covariates incorporated into the models. 
+These population structures were designed to coincide with potential spatial structures used in proposed OMs.  
+A panmictic spatial structure (PSS) approach assumes that the parameters that determine maturity are constant regardless of location. 
 
-To reduce complexity in this examination the output was constrained to models that can provide an estimate of maturity-at-age.
-Each region (Alaska and west coast) were modeled separately using the following generalized additive model:
+Two PSS models were considered:
+
 \begin{equation}
-\hat{M_a}=f_1(Length) + f_2(Location) + f_3(depth) + Age + Year + \epsilon. 
+\hat{M}_a = f_1(age)
+(\#eq:eqn1)
 \end{equation}
 
-The "joint" model combined both datasets and had the addition of a "region" variable.
+and 
+
 \begin{equation}
-\hat{M_a}=f_1(Length)\cdot Age + f_2(Location) + f_3(Depth) + Age + Year + Region + \epsilon. \end{equation}
-Length, location (lat/long), and depth were included as continuous variables. 
-The "knots" for length and depth were constrained to a maximum of 4. 
-All other variables were included as factors.
-
-
-Note that figures 9-11 are only representative of the samples collected. 
-If the location of the population as a whole is substantially different then these figures can be highly misleading.
-
-### Maturity models  
-
-Each region (Alaska and west coast) were modeled separately using the following generalized additive model:
-\begin{equation}
-\hat{M_a}=f_1(Length)\cdot Age + f_2(Location) + f_3(depth) + Age + Year + \epsilon. 
+\hat{M}_a = f_1(age) + f_2(length).
+(\#eq:eqn2)
 \end{equation}
 
-The "joint" model combined both datasets and had the addition of a "region" variable.
+A growth-informed spatial structure (GSS) was also examined, the GSS is aligned with regional breaks in the OM being developed for the coastwide MSE (Kapur et al. *In prep*). 
+The spatial structure is a slight variant of the growth regions presented in [@Kapur2020], with the variation being a combining of a small region in BC with surrounding larger areas. 
+
+The global GSS model was: 
+
 \begin{equation}
-\hat{M_a}=f_1(Length)\cdot Age + f_2(Location) + f_3(depth) + Age + Year + Region + \epsilon. \end{equation}
-Length, location (lat/long), and depth were included as continuous variables. 
-The "knots" for length and depth were constrained to a maximum of 4. 
-All other variables were included as factors.
+  \hat{M}_a = f_1(age) + f_1(length) + f_2(location, by=Region) + f_3(depth) + Region + \epsilon. 
+  (\#eq:eqn3)
+\end{equation}
 
-#### Model predictions
+Age, length, location (lat/long), and depth were included as continuous variables. 
+The number of knots for age, length, and depth were constrained to a maximum of 4. 
+Region was included as a factor.
+A total of seven models were examined.
+Maturity model identifiers are as follows:
 
-Prediction data were established so that lengths were binned in two-centimeter increments between 10 and 80 cm and constrained to the minimum and maximum lengths by both age and region. 
-Latitude and longitude were in one-degree increments between the minimum and maximum for each region. 
-Ages 1 through 20 were included in the prediction dataset. 
-Depth was set as the median depth in each Region.
+\begin{align}
+ma & = age \\
+mal & = age + length \\
+mar & = age + region \\
+marl & = age + region + length \\
+mard & = age + region + depth \\
+marld & = age + region + length + depth \\
+marlld & = age + region + length + location + depth. \\
+\end{align}
 
-Model predictions presented are the mean of the observed response e.g., the proportion mature at length by the mean length at age, mean depth, etc. 
-This differs from the usual presentation of median values for predictions. 
-However, it is unclear what the median location indicates, perhaps the mode would be more informative?
+
+
+For prediction purposed the median location and depth values were used and size at age $L_a$ was estimated using the @Schute1981 formulation of the von Bertalanffy growth function. 
+
+\begin{equation}
+ L_a = L_\infty + (L_1 - L_\infty) (e^{-\kappa_\gamma age})
+ (\#eq:eqn4)
+\end{equation}
+
+Where $\gamma$ is a region specific modifier of $\kappa$ to account for the timing of maturity.
+Regional model parameterizations from [@Kapur2020] were optimized on regional maturity data to determine region specific $\gamma$ values. 
 
 # Results  
 
-Overall the joint model does a reasonably good job of describing the data in hand, with 74.1% of explained deviance (Table 1).
-The joint and separate models do a similar job of estimating maturity at age and length (Figures 1 & 2).
+Both AIC and BIC identify some of the more complex models as the most informative (Table 1).
+
 
 
 # Discussion  
@@ -133,8 +166,103 @@ General thoughts:
 \newpage 
 
 
-
 # Tables 
 
 
+```{r}
+read.csv(here::here("data", "gam_results.csv")) -> gr
+flextable::flextable(gr) %>% 
+  flextable::set_caption("Generalized additive model results. The lowest AIC and BIC values are shaded gray.") %>% 
+   flextable::font(fontname = "Times New Roman", part = "all") %>%
+   flextable::fontsize(size = 11, part = "all") %>% 
+   flextable::colformat_double(digits=2) %>% 
+      flextable::compose(j=1,
+            value = flextable::as_paragraph("Model"),
+            part = "header") %>% 
+        flextable::compose(j=2,
+            value = flextable::as_paragraph("Coefficient"),
+            part = "header") %>% 
+          flextable::compose(j=3,
+            value = flextable::as_paragraph("R", flextable::as_sup(as.character(2)), " (adj)"),
+            part = "header") %>% 
+        flextable::compose(j=4,
+            value = flextable::as_paragraph("Deviance explained"),
+            part = "header") %>% 
+    flextable::width(j = 2, width = 1.5) %>% 
+    flextable::align(j=-1, align = "right", part = 'all') %>% 
+  flextable::bg(i=7, j=6, bg='lightgray') %>% 
+  flextable::bg(i=5, j=7, bg='lightgray')
+  
+```
+
+
+```{r}
+read.csv(here::here("data", "locs.csv")) -> locs
+flextable::flextable(locs) %>% 
+  flextable::set_caption("Median depth and location by region variables for model predictions and associated sample sizes.") %>% 
+   flextable::font(fontname = "Times New Roman", part = "all") %>%
+    flextable::fontsize(size = 11, part = "all") %>% 
+  flextable::compose(j=2,
+            value = flextable::as_paragraph("Depth (m)"),
+            part = "header") %>% 
+    flextable::compose(j=3,
+            value = flextable::as_paragraph("Latitude"),
+            part = "header") %>% 
+    flextable::compose(j=4,
+            value = flextable::as_paragraph("Longitude"),
+            part = "header") %>% 
+      flextable::compose(j=5,
+            value = flextable::as_paragraph("Sample size"),
+            part = "header") %>% 
+  flextable::width(j = c(2,4, 5), width = 1) %>% 
+  flextable::align(j=-1, align = "right")
+  
+  
+```
+
+\pagebreak
+
+```{r}
+
+read.csv(here::here("data", "lngs.csv")) -> lngs
+flextable::flextable(lngs) %>% 
+  flextable::set_caption("Regional estimates of length at age used in model predictions.") %>% 
+   flextable::font(fontname = "Times New Roman", part = "all") %>%
+    flextable::fontsize(size = 11, part = "all") %>% 
+  flextable::compose(j=2,
+            value = flextable::as_paragraph("Region 1"),
+            part = "header") %>% 
+    flextable::compose(j=3,
+            value = flextable::as_paragraph("Region 2"),
+            part = "header") %>% 
+    flextable::compose(j=4,
+            value = flextable::as_paragraph("Region 3"),
+            part = "header") %>% 
+      flextable::compose(j=5,
+            value = flextable::as_paragraph("Region 4"),
+            part = "header") %>% 
+  flextable::width(j = 2, width = 1) %>% 
+  flextable::align(j=2:5, align = "right")
+  
+  
+```
+
+\pagebreak 
+
 # Figures  
+
+```{r map, fig.cap="Sablefish sample collection locations by year. Note that location information is unavailable for 2016."}
+knitr::include_graphics(here::here('figs', 'map.png'))
+```
+
+```{r depth, fig.cap="Sablefish sample collection by depth, age and region."}
+knitr::include_graphics(here::here('figs', 'depth.png'))
+```
+
+```{r mat, fig.cap="Sablefish predicted maturity curves by region."}
+knitr::include_graphics(here::here('figs', 'mat.png'))
+```
+
+```{r mat2, fig.cap="Sablefish predicted maturity curves by region for the top models from AIC and BIC analysis."}
+knitr::include_graphics(here::here('figs', 'mat2.png'))
+```
