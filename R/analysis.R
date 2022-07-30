@@ -209,7 +209,7 @@ vonb %>%
     # mard = predict.gam(mard, ., type = 'response'),
     # marld = predict.gam(marld, ., type = 'response'),
     marlld = predict.gam(marlld, ., type = 'response')
-  ) %>% 
+  ) %>% select(age, Region, marl) %>% tidyr::pivot_wider(names_from = Region, values_from = marl) %>% vroom::vroom_write(here::here('data', "results.csv"), ",")
   pivot_longer(-c(Region, age, length, Age, depth, lat, long, n)) %>% 
   ggplot(aes(age, value, color = name)) + 
   geom_line() + 
