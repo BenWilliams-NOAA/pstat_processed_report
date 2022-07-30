@@ -144,18 +144,25 @@ Regional model parameterizations from [@Kapur2020] were optimized on regional ma
 # Results  
 
 Both AIC and BIC identify some of the more complex models as the most informative (Table 1).
+The majority of the models describe maturity in a similar fashion, particularly for Regions 3 & 4 (Figure 3). 
+The main exception is a simple age-based maturity schedule, which is particularly different for Region 1 (Figure 3). 
+Of note is the decrease in predicted maturity for ages between ~20-35 (Figure 3), this type of trend can often be assigned to a small sample size, mis-classified maturity, or skip spawning. 
+As these samples were evaluated histologically, it is unlikely that they were mis-classified.
 
 
 
 # Discussion  
 
+As the two most parsimonious models (marl and marlld) generate similar maturity curves (Figure 4) and have similar descriptive capabilities (Table 1) using the simpler model (marl) is recommended for inclusion in an OM that accounts for regional growth differences. 
+
+
 General thoughts: 
 
- - There are some substantial differences in the sample sizes by location, depth, age, etc. that need to be considered when examining a coastwide model; therfore I utilized generalized additive models as they deal with missing data fairly well.
- - Given the spatial differences in sablefish maturity, on both coastwide and regional scales, it is imperative to incorporate spatial abundance estimates into the estimated maturity schedule.
+ - There are some substantial differences in the sample sizes by location, depth, age, etc. that need to be considered when examining a coastwide model; therefore I utilized generalized additive models as they deal with missing data fairly well.
+ - Given the spatial differences in sablefish maturity, on both coastwide and regional scales, it would be helpful to incorporate spatial abundance estimates into the estimated maturity schedule (data weight).
  - Length at maturity is a more precise descriptor (no surprise there).
  - For the coastwide analysis it would likely be easiest to implement either a strait age at maturity schedule or a von Bertalanffy estimated conditional length at maturity.
- - It may be desireable to incorporate some of the spatial aspects that are found within each region (not fully detailed here).
+ - It may be desirable to incorporate some of the spatial aspects that are found within each region, though the added explanatory benefits for these data appear minor.
 
 # Acknowledgements
 
