@@ -1,0 +1,8 @@
+model,coefficients,R,dev,df,AIC,BIC
+ma,age,0.612,55.6,3.9036800918878187,1220,1241
+mal,age + length,0.689,64.2,4.7636396691742995,988,1014
+mar,age + region,0.658,60.1,6.928409062323664,1102,1141
+mard,age + region + depth,0.663,60.8,9.78719041441183,1088,1143
+marl,age + region + length,0.76,71.2,7.75574732605963,801,844
+marld,age + region + length + depth,0.761,71.4,8.711781855426448,797,846
+marlld,age + region + length + location + depth,0.773,72.7,21.426288978873938,787,907
