@@ -256,6 +256,36 @@ flextable::flextable(lngs) %>%
 
 \pagebreak 
 
+```{r}
+
+read.csv(here::here("data", "results.csv")) -> res
+flextable::flextable(res) %>% 
+  flextable::set_caption("Estimated maturity at age for the age + region + length 'marl' model.") %>% 
+   flextable::font(fontname = "Times New Roman", part = "all") %>%
+    flextable::fontsize(size = 11, part = "all") %>% 
+  flextable::compose(j=1,
+            value = flextable::as_paragraph("Age"),
+            part = "header") %>% 
+   flextable::colformat_double(digits=2) %>% 
+    flextable::align(j=1, align = "left", part='all') %>% 
+    flextable::compose(j=2,
+            value = flextable::as_paragraph("Region 1"),
+            part = "header") %>% 
+      flextable::compose(j=3,
+            value = flextable::as_paragraph("Region 2"),
+            part = "header") %>% 
+    flextable::compose(j=4,
+            value = flextable::as_paragraph("Region 3"),
+            part = "header") %>% 
+      flextable::compose(j=5,
+            value = flextable::as_paragraph("Region 4"),
+            part = "header")
+  
+  
+```
+
+\pagebreak 
+
 # Figures  
 
 ```{r map, fig.cap="Sablefish sample collection locations by year. Note that location information is unavailable for 2016."}
